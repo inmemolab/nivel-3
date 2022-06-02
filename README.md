@@ -30,10 +30,22 @@ yarn install
  http://localhost:3000/api/smallest
 ```
 
+## Ruta api /stats GET (query) en local
+
+```bash
+ http://localhost:3000/api/stats?isnumber=4
+```
+
 ## Ruta api /smallest POST en Heroku
 
 ```bash
 https://keo-test-2.herokuapp.com/api/smallest
+```
+
+## Ruta api /stats GET (query) en Heroku
+
+```bash
+https://keo-test-3.herokuapp.com/stats?isnumber=4
 ```
 
 ## sample body POST

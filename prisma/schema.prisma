@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Arrays {
-  id      Int @id @default(autoincrement())
-  min     Int?
-  max     Int?
-  numbers Json?
-  missing Json?
+  id        Int      @id @default(autoincrement())
+  min       Int
+  max       Int
+  numbers   Json
+  missing   Json
+  minNum    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

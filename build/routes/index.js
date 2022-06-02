@@ -23,6 +23,8 @@ apiRouter.post("/smallest", async function (req, res) {
         // console.log("Min: ", min);
         // array para los que faltan
         const missing = [];
+        // obtenemos el minimo
+        let minNum = 0;
         // primer condicional
         if (min >= -1000000 && max <= 1000000) {
             // si el max es menor que sero devuelve 1
@@ -39,6 +41,8 @@ apiRouter.post("/smallest", async function (req, res) {
                     if (!array.includes(i) && i >= 1 && max <= 1000000) {
                         // push a los que faltan
                         missing.push(i);
+                        //console.log("array nums: ", missing);
+                        minNum = Math.min(...missing);
                     }
                 }
             }
@@ -47,13 +51,15 @@ apiRouter.post("/smallest", async function (req, res) {
                     min: min,
                     max: max,
                     numbers: array,
-                    missing: missing
+                    missing: missing,
+                    minNum: minNum
                 }
             });
             return res.status(200).json({
                 method: req.method,
                 status: res.statusCode,
-                result: missing
+                resultArray: missing,
+                result: minNum
             });
         }
     }
@@ -63,10 +69,44 @@ apiRouter.post("/smallest", async function (req, res) {
         error: "No cumple con el rango"
     });
 });
+// stats
 apiRouter.get("/stats", async function (req, res) {
-    // const { isnumber }: IArrays = req.params;
-    const numbers = await prisma.arrays.findMany();
-    console.log(numbers);
+    // const number = req.query.isnumber;
+    const { isnumber } = req.query;
+    if (isnumber) {
+        // count todos
+        const resultTot = await prisma.arrays.count();
+        // console.log("all: ", resultTot);
+        // count todos por el numero
+        const resultCount = await prisma.arrays.count({
+            where: {
+                minNum: Number(isnumber)
+            }
+        });
+        // console.log("count: ", resultCount);
+        // mostrar lo que hay en Bd
+        const result = await prisma.arrays.findMany({
+            where: {
+                minNum: Number(isnumber)
+            }
+        });
+        // calculamos el ratio
+        const ratio = (Number(resultCount) / Number(resultTot)).toFixed(1);
+        // console.log("ratio: ", ratio);
+        return res.status(200).json({
+            method: req.method,
+            status: res.statusCode,
+            total: resultTot,
+            count: resultCount,
+            ratio: ratio,
+            result: result
+        });
+    }
+    return res.status(401).json({
+        method: req.method,
+        status: res.statusCode,
+        error: "No chay numero que buscar"
+    });
 });
 // export
 exports.default = apiRouter;

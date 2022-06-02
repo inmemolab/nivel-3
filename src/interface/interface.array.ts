@@ -5,6 +5,7 @@ export interface IArrays {
   max?: number;
   numbers?: any;
   missing?: any;
+  minNum?: number;
   createdAt?: any;
   updatedAt?: any;
 }
