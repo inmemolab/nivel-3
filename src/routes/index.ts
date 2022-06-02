@@ -127,5 +127,22 @@ apiRouter.get("/all", async function (req: Request, res: Response) {
     result: result
   });
 });
+// by id
+apiRouter.get("/item/:id", async function (req: Request, res: Response) {
+  //
+  const id = req.params.id;
+  // mostrar lo que hay en Bd
+  const result = await prisma.arrays.findMany({
+    where: {
+      id: Number(id)
+    }
+  });
+  // return de la data
+  return res.status(200).json({
+    method: req.method,
+    status: res.statusCode,
+    result: result
+  });
+});
 // export
 export default apiRouter;
