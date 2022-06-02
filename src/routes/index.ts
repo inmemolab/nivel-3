@@ -93,7 +93,7 @@ apiRouter.get("/stats", async function (req: Request, res: Response) {
     // calculamos el ratio
     const ratio = (Number(resultCount) / Number(resultTot)).toFixed(1);
     // console.log("ratio: ", ratio);
-
+    // return de la data
     return res.status(200).json({
       method: req.method,
       status: res.statusCode,
