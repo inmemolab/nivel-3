@@ -9,3 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Arrays {
+  id      Int @id @default(autoincrement())
+  min     Int?
+  max     Int?
+  numbers Json?
+  missing Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
