@@ -1,11 +1,15 @@
 // imports express
 import { Router, Request, Response } from "express";
+// prisma
+import { PrismaClient } from "@prisma/client";
 // import dto
 import { ArrayDTO } from "../dto/dto.array";
+// ini prisma
+const prisma = new PrismaClient();
 // create router
 const apiRouter = Router();
 // routes api
-apiRouter.post("/smallest", function (req: Request, res: Response) {
+apiRouter.post("/smallest", async function (req: Request, res: Response) {
   const { array }: ArrayDTO = req.body;
   // si hay un array
   if (array) {
@@ -36,6 +40,14 @@ apiRouter.post("/smallest", function (req: Request, res: Response) {
           }
         }
       }
+      await prisma.arrays.create({
+        data: {
+          min: min,
+          max: max,
+          numbers: array,
+          missing: missing
+        }
+      });
       return res.status(200).json({
         method: req.method,
         status: res.statusCode,
