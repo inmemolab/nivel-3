@@ -1,5 +1,5 @@
 // imports express
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 // prisma
 import { PrismaClient } from "@prisma/client";
 // import dto
@@ -10,6 +10,12 @@ import { IArrays } from "../interface/interface.array";
 const prisma = new PrismaClient();
 // create router
 const apiRouter = Router();
+// secure call
+apiRouter.use(function (req: Request, res: Response, next: NextFunction) {
+  res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  next();
+});
 // routes api
 apiRouter.post("/smallest", async function (req: Request, res: Response) {
   const { array }: ArrayDTO = req.body;
@@ -71,8 +77,9 @@ apiRouter.post("/smallest", async function (req: Request, res: Response) {
 });
 // stats
 apiRouter.get("/stats", async function (req: Request, res: Response) {
-  // const number = req.query.isnumber;
+  // obtenemos el numero del query
   const { isnumber }: IArrays = req.query;
+  // si llega un numero
   if (isnumber) {
     // count todos
     const resultTot = await prisma.arrays.count();
@@ -107,6 +114,17 @@ apiRouter.get("/stats", async function (req: Request, res: Response) {
     method: req.method,
     status: res.statusCode,
     error: "No chay numero que buscar"
+  });
+});
+// stats
+apiRouter.get("/all", async function (req: Request, res: Response) {
+  // mostrar lo que hay en Bd
+  const result = await prisma.arrays.findMany();
+  // return de la data
+  return res.status(200).json({
+    method: req.method,
+    status: res.statusCode,
+    result: result
   });
 });
 // export

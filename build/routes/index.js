@@ -8,6 +8,12 @@ const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 // create router
 const apiRouter = (0, express_1.Router)();
+// secure call
+apiRouter.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    next();
+});
 // routes api
 apiRouter.post("/smallest", async function (req, res) {
     const { array } = req.body;
@@ -93,6 +99,7 @@ apiRouter.get("/stats", async function (req, res) {
         // calculamos el ratio
         const ratio = (Number(resultCount) / Number(resultTot)).toFixed(1);
         // console.log("ratio: ", ratio);
+        // return de la data
         return res.status(200).json({
             method: req.method,
             status: res.statusCode,
