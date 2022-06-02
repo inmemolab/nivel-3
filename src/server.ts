@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // show
 app.get("/", (req: Request, res: Response) => res.send("Listos!!!"));
 // routes api and app
-app.use("/api/", apiRouter);
+app.use("/api", apiRouter);
 // app
 app.listen(port, () => {
   console.log("App iniciada");

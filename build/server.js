@@ -18,7 +18,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 // show
 app.get("/", (req, res) => res.send("Listos!!!"));
 // routes api and app
-app.use("/api/", routes_1.default);
+app.use("/api", routes_1.default);
 // app
 app.listen(port, () => {
     console.log("App iniciada");
