@@ -63,8 +63,8 @@ apiRouter.post("/smallest", async function (req, res) {
         error: "No cumple con el rango"
     });
 });
-apiRouter.get("/stats/:isnumber", async function (req, res) {
-    const { isnumber } = req.params;
+apiRouter.get("/stats", async function (req, res) {
+    // const { isnumber }: IArrays = req.params;
     const numbers = await prisma.arrays.findMany();
     console.log(numbers);
 });

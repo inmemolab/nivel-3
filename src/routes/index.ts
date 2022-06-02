@@ -64,8 +64,8 @@ apiRouter.post("/smallest", async function (req: Request, res: Response) {
   });
 });
 
-apiRouter.get("/stats/:isnumber", async function (req: Request, res: Response) {
-  const { isnumber }: IArrays = req.params;
+apiRouter.get("/stats", async function (req: Request, res: Response) {
+  // const { isnumber }: IArrays = req.params;
   const numbers = await prisma.arrays.findMany();
   console.log(numbers);
 });
