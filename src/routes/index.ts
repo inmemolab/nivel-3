@@ -4,6 +4,8 @@ import { Router, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 // import dto
 import { ArrayDTO } from "../dto/dto.array";
+// import interface
+import { IArrays } from "../interface/interface.array";
 // ini prisma
 const prisma = new PrismaClient();
 // create router
@@ -60,6 +62,12 @@ apiRouter.post("/smallest", async function (req: Request, res: Response) {
     status: res.statusCode,
     error: "No cumple con el rango"
   });
+});
+
+apiRouter.get("/stats/:isnumber", async function (req: Request, res: Response) {
+  const { isnumber }: IArrays = req.params;
+  const numbers = await prisma.arrays.findMany();
+  console.log(numbers);
 });
 // export
 export default apiRouter;
