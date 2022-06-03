@@ -16,7 +16,7 @@ const corsOptions = {
   origin: process.env.CLIENT_URL
 };
 app.use(cors(corsOptions));
-// show
+// show aon route
 app.get("/", (req: Request, res: Response) => res.send("Listos!!!"));
 // routes api and app
 app.use("/api", apiRouter);
