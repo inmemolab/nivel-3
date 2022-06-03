@@ -54,4 +54,10 @@ https://keo-test-3.herokuapp.com/stats?isnumber=4
 {"array": [1,3,6,4,1,2,20,60]}
 ```
 
+## para correr pruebas
+
+```bash
+yarn test
+```
+
 ### se mostrara en consola los resultados
