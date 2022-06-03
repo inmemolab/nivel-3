@@ -38,8 +38,10 @@ apiRouter.post("/smallest", async function (req: Request, res: Response) {
       // si el max es menor que sero devuelve 1
       if (max < 1) {
         missing.push(1);
+        minNum = Math.min(...missing);
       } else if (min === 1 && max === 3) {
         missing.push(4);
+        minNum = Math.min(...missing);
       } else {
         // bucle
         for (let i = min; i <= max; i++) {
