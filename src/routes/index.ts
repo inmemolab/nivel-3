@@ -30,7 +30,7 @@ apiRouter.post("/smallest", async function (req: Request, res: Response) {
     const min = Math.min(...array);
     // console.log("Min: ", min);
     // array para los que faltan
-    const missing = [];
+    const missing: any = [];
     // obtenemos el minimo
     let minNum = 0;
     // primer condicional
